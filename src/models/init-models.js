@@ -19,8 +19,12 @@ export default function initModels(sequelize) {
   const sub_food = _sub_food.init(sequelize, DataTypes);
   const users = _users.init(sequelize, DataTypes);
 
+  food.belongsToMany(users, { as: 'user_id_users_orders', through: orders, foreignKey: "food_id", otherKey: "user_id" });
   restaurant.belongsToMany(users, { as: 'user_id_users', through: like_res, foreignKey: "res_id", otherKey: "user_id" });
+  restaurant.belongsToMany(users, { as: 'user_id_users_rate_res', through: rate_res, foreignKey: "res_id", otherKey: "user_id" });
+  users.belongsToMany(food, { as: 'food_id_foods', through: orders, foreignKey: "user_id", otherKey: "food_id" });
   users.belongsToMany(restaurant, { as: 'res_id_restaurants', through: like_res, foreignKey: "user_id", otherKey: "res_id" });
+  users.belongsToMany(restaurant, { as: 'res_id_restaurant_rate_res', through: rate_res, foreignKey: "user_id", otherKey: "res_id" });
   orders.belongsTo(food, { as: "food", foreignKey: "food_id"});
   food.hasMany(orders, { as: "orders", foreignKey: "food_id"});
   sub_food.belongsTo(food, { as: "food", foreignKey: "food_id"});

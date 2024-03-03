@@ -6,7 +6,8 @@ export default class rate_res extends Model {
   return super.init({
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      primaryKey: true,
       references: {
         model: 'users',
         key: 'user_id'
@@ -14,7 +15,8 @@ export default class rate_res extends Model {
     },
     res_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      primaryKey: true,
       references: {
         model: 'restaurant',
         key: 'res_id'
@@ -33,6 +35,15 @@ export default class rate_res extends Model {
     tableName: 'rate_res',
     timestamps: false,
     indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "user_id" },
+          { name: "res_id" },
+        ]
+      },
       {
         name: "user_id",
         using: "BTREE",
