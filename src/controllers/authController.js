@@ -23,11 +23,7 @@ const login = async (req, res) => {
             // truyền vào checkEmail là nguyên cái 
             let token = createToken({ userId: checkEmail.dataValues.user_id, key });
 
-            // await model.users.update(checkEmail.dataValues, {
-            //     where: {
-            //         user_id: checkEmail.dataValues.user_id
-            //     }
-            // })
+            // console.log('token: ', token);
 
             responseApi(res, 200, token, "Đăng nhập thành công")
         }
